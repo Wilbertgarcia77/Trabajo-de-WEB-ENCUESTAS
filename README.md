@@ -1,3 +1,7 @@
+Nombre : Wilbert Dudly Garcia Martinez 
+Carrera : Ingeniera en sistemas 
+Programacion orientada a la web 2 
+
 # Trabajo-de-WEB-ENCUESTAS
 Esta es una aplicación web pensada para gimnasios y sus clientes, con la idea de que cada persona pueda tener un seguimiento más personalizado de su entrenamiento y nutrición. La app cuenta con un login, así que cada usuario tiene su propio acceso y el gimnasio puede llevar un registro de todos sus clientes de forma organizada.
 
