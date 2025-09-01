@@ -1,0 +1,43 @@
+@{
+    ViewData["Title"] = "Encuesta Personal";
+}
+<div style="padding:40px;max-width:500px;margin:40px auto;background:#222;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,0.10);color:#fff;">
+    <h2 style="color:#ffc107;font-weight:bold;text-align:center;font-family:'Montserrat',Arial,sans-serif;letter-spacing:1px;">Encuesta Personal</h2>
+    <form asp-action="Personales" method="post">
+        <div class="mb-3">
+            <label style="font-size:1.1rem;font-family:'Montserrat',Arial,sans-serif;color:#fff;font-weight:600;">¿Cuál es tu edad?</label>
+            <input type="number" name="edad" class="form-control" style="border-radius:8px;" required />
+        </div>
+        <div class="mb-3">
+            <label style="font-size:1.1rem;font-family:'Montserrat',Arial,sans-serif;color:#fff;font-weight:600;">¿Tienes alguna condición médica relevante?</label>
+            <input type="text" name="enfermedadCronica" class="form-control" style="border-radius:8px;" required />
+        </div>
+        <div class="mb-3">
+            <label style="font-size:1.1rem;font-family:'Montserrat',Arial,sans-serif;color:#fff;font-weight:600;">¿Has sido recomendado por un médico para hacer ejercicio?</label>
+            <input type="text" name="recomendadoMedico" class="form-control" style="border-radius:8px;" required />
+        </div>
+        <div class="mb-3">
+            <label style="font-size:1.1rem;font-family:'Montserrat',Arial,sans-serif;color:#fff;font-weight:600;">¿Cuál es tu ocupación?</label>
+            <input type="text" name="ocupacion" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label style="font-size:1.1rem;font-family:'Montserrat',Arial,sans-serif;color:#fff;font-weight:600;">¿Cuántas horas duermes al día?</label>
+            <input type="number" name="horasSueno" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label style="font-size:1.1rem;font-family:'Montserrat',Arial,sans-serif;color:#fff;font-weight:600;">¿Fumas o consumes alcohol?</label>
+            <input type="text" name="habitos" class="form-control" />
+        </div>
+        <div class="d-grid gap-2 mb-2">
+            <button type="submit" class="btn btn-warning btn-block" style="border-radius:8px;font-weight:bold;">Enviar</button>
+        </div>
+    </form>
+    @if (TempData["EncuestaGuardada"] != null)
+    {
+        <div class="alert alert-success mt-3">¡Encuesta guardada correctamente!</div>
+    }
+    @if (TempData["ResultadoOpenAI"] != null)
+    {
+        <div class="alert alert-info mt-3" style="font-size:1.1rem;">@TempData["ResultadoOpenAI"]</div>
+    }
+</div>

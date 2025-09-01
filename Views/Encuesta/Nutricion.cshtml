@@ -1,0 +1,45 @@
+@{
+    ViewData["Title"] = "Encuesta de Nutrición";
+}
+<div style="padding:40px;max-width:500px;margin:40px auto;background:#222;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,0.10);color:#fff;">
+    <h2 style="color:#007bff;font-weight:bold;text-align:center;font-family:'Montserrat',Arial,sans-serif;letter-spacing:1px;">Encuesta de Nutrición</h2>
+    <form asp-action="Nutricion" method="post">
+        <div class="mb-3">
+            <label style="font-size:1.1rem;font-family:'Montserrat',Arial,sans-serif;color:#fff;">¿Cuál es tu plan alimenticio actual?</label>
+            <input type="text" name="planAlimenticio" class="form-control" required />
+        </div>
+        <div class="mb-3">
+            <label style="font-size:1.1rem;font-family:'Montserrat',Arial,sans-serif;color:#fff;">¿Tienes alguna restricción alimentaria?</label>
+            <input type="text" name="restriccionAlimentaria" class="form-control" required />
+        </div>
+        <div class="mb-3">
+            <label style="font-size:1.1rem;font-family:'Montserrat',Arial,sans-serif;color:#fff;">¿Cuántas comidas realizas al día?</label>
+            <input type="number" name="comidasPorDia" class="form-control" required />
+        </div>
+        <div class="mb-3">
+            <label style="font-size:1.1rem;font-family:'Montserrat',Arial,sans-serif;color:#fff;">¿Consumes suplementos? ¿Cuáles?</label>
+            <input type="text" name="suplementos" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label style="font-size:1.1rem;font-family:'Montserrat',Arial,sans-serif;color:#fff;">¿Cuántos litros de agua tomas al día?</label>
+            <input type="number" step="0.1" name="aguaDia" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label style="font-size:1.1rem;font-family:'Montserrat',Arial,sans-serif;color:#fff;">¿Tienes alguna alergia alimentaria?</label>
+            <input type="text" name="alergias" class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
+    @if (TempData["EncuestaGuardada"] != null)
+    {
+        <div class="alert alert-success mt-3">¡Encuesta guardada correctamente!</div>
+    }
+    @if (TempData["ErrorEncuesta"] != null)
+    {
+        <div class="alert alert-danger mt-3">@TempData["ErrorEncuesta"]</div>
+    }
+    @if (TempData["ResultadoOpenAI"] != null)
+    {
+        <div class="alert alert-info mt-3" style="font-size:1.1rem;">@TempData["ResultadoOpenAI"]</div>
+    }
+</div>

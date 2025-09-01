@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - encuestasgym</title>
+    <script type="importmap"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/encuestasgym.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm navbar-blackgym">
+        <div class="container">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Black Gym Ai</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Register">Registro</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    @if (ViewContext.RouteData.Values["action"]?.ToString() != "Login")
+    {
+        <div style="display:flex;min-height:100vh;background:linear-gradient(120deg,#222 60%,#007bff 100%);font-family:'Montserrat',Arial,sans-serif;">
+            <nav style="width:240px;background:linear-gradient(135deg,#111 80%,#007bff 100%);padding:40px 0;display:flex;flex-direction:column;align-items:center;box-shadow:2px 0 16px rgba(0,0,0,0.15);">
+                <div style="color:#fff;font-size:2.2rem;font-weight:bold;margin-bottom:40px;letter-spacing:2px;text-shadow:0 2px 8px #007bff;">
+                    🏋️‍♂️ Black Gym Ai
+                </div>
+                <a href="/Home/Index" class="btn btn-dark mb-3 w-75 d-flex align-items-center justify-content-start" style="font-weight:bold;font-size:1.1rem;border-radius:8px;"><span style="font-size:1.3rem;margin-right:10px;">🏠</span> Inicio</a>
+                <a href="/Encuesta/Nutricion" class="btn btn-primary mb-3 w-75 d-flex align-items-center justify-content-start" style="font-weight:bold;font-size:1.1rem;border-radius:8px;"><span style="font-size:1.3rem;margin-right:10px;">🥗</span> Nutrición</a>
+                <a href="/Encuesta/Ejercicio" class="btn btn-success mb-3 w-75 d-flex align-items-center justify-content-start" style="font-weight:bold;font-size:1.1rem;border-radius:8px;"><span style="font-size:1.3rem;margin-right:10px;">💪</span> Ejercicio</a>
+                <a href="/Encuesta/Personales" class="btn btn-warning mb-3 w-75 d-flex align-items-center justify-content-start" style="font-weight:bold;font-size:1.1rem;border-radius:8px;"><span style="font-size:1.3rem;margin-right:10px;">🧑‍⚕️</span> Personales</a>
+                <a href="/Resultados/Index" class="btn btn-info mb-3 w-75 d-flex align-items-center justify-content-start" style="font-weight:bold;font-size:1.1rem;border-radius:8px;"><span style="font-size:1.3rem;margin-right:10px;">📊</span> Resultados</a>
+                <form asp-controller="Account" asp-action="Logout" method="post" style="width:100%;">
+                    <button type="submit" class="btn btn-danger mb-3 w-75 d-flex align-items-center justify-content-start" style="font-weight:bold;font-size:1.1rem;border-radius:8px;">
+                        <span style="font-size:1.3rem;margin-right:10px;">�</span> Cerrar sesión
+                    </button>
+                </form>
+                <a href="/Home/Privacy" class="btn btn-outline-light mb-3 w-75 d-flex align-items-center justify-content-start" style="font-weight:bold;font-size:1.1rem;border-radius:8px;"><span style="font-size:1.3rem;margin-right:10px;">🔒</span> Privacidad</a>
+            </nav>
+            <div class="flex-grow-1" style="padding:50px 0 0 0;">
+                <main role="main" class="pb-3">
+                    @RenderBody()
+                </main>
+            </div>
+        </div>
+    }
+    else
+    {
+        <main role="main" style="min-height:100vh;">
+            @RenderBody()
+        </main>
+    }
+    <style>
+    .navbar-blackgym {
+        background: linear-gradient(90deg,#222 70%,#007bff 100%);
+        border-bottom: 2px solid #007bff;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    <style>
+        body, html {
+            background: linear-gradient(120deg,#222 60%,#007bff 100%) !important;
+            font-family: 'Montserrat', Arial, sans-serif;
+        }
+        .navbar-blackgym {
+            background: linear-gradient(90deg,#222 70%,#007bff 100%);
+            border-bottom: 2px solid #007bff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .navbar-blackgym .navbar-brand {
+            color: #fff !important;
+            font-weight: bold;
+            font-size: 2rem;
+            letter-spacing: 2px;
+        }
+        .navbar-blackgym .nav-link {
+            color: #fff !important;
+            font-weight: 500;
+            font-size: 1.1rem;
+            margin-right: 10px;
+            transition: color 0.2s;
+        }
+        .navbar-blackgym .nav-link:hover {
+            color: #007bff !important;
+        }
+    </style>
+</body>
+</html>
+

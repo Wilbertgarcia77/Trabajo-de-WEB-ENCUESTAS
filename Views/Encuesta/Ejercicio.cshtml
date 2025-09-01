@@ -1,0 +1,43 @@
+@{
+    ViewData["Title"] = "Encuesta de Ejercicio";
+}
+<div style="padding:40px;max-width:500px;margin:40px auto;background:#222;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,0.10);color:#fff;">
+    <h2 style="color:#28a745;font-weight:bold;text-align:center;font-family:'Montserrat',Arial,sans-serif;letter-spacing:1px;">Encuesta de Ejercicio</h2>
+    <form asp-action="Ejercicio" method="post">
+        <div class="mb-3">
+            <label style="font-size:1.1rem;font-family:'Montserrat',Arial,sans-serif;color:#fff;font-weight:600;">¿Con qué frecuencia realizas ejercicio?</label>
+            <input type="number" name="diasEjercicio" class="form-control" style="border-radius:8px;" required />
+        </div>
+        <div class="mb-3">
+            <label style="font-size:1.1rem;font-family:'Montserrat',Arial,sans-serif;color:#fff;font-weight:600;">¿Qué tipo de ejercicio practicas?</label>
+            <input type="text" name="tipoEjercicio" class="form-control" style="border-radius:8px;" required />
+        </div>
+        <div class="mb-3">
+            <label style="font-size:1.1rem;font-family:'Montserrat',Arial,sans-serif;color:#fff;font-weight:600;">¿Has tenido lesiones previas? ¿Cuáles?</label>
+            <input type="text" name="condicionFisica" class="form-control" style="border-radius:8px;" required />
+        </div>
+        <div class="mb-3">
+            <label style="font-size:1.1rem;font-family:'Montserrat',Arial,sans-serif;color:#fff;font-weight:600;">¿Cuál es tu objetivo principal al ejercitarte?</label>
+            <input type="text" name="objetivo" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label style="font-size:1.1rem;font-family:'Montserrat',Arial,sans-serif;color:#fff;font-weight:600;">¿Cuál es la duración promedio de tus rutinas?</label>
+            <input type="number" name="tiempoSesion" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label style="font-size:1.1rem;font-family:'Montserrat',Arial,sans-serif;color:#fff;font-weight:600;">¿Prefieres entrenar solo o en grupo?</label>
+            <input type="text" name="preferenciaGrupo" class="form-control" />
+        </div>
+        <div class="d-grid gap-2 mb-2">
+            <button type="submit" class="btn btn-success btn-block" style="border-radius:8px;font-weight:bold;">Enviar</button>
+        </div>
+    </form>
+    @if (TempData["EncuestaGuardada"] != null)
+    {
+        <div class="alert alert-success mt-3">¡Encuesta guardada correctamente!</div>
+    }
+    @if (TempData["ResultadoOpenAI"] != null)
+    {
+        <div class="alert alert-info mt-3" style="font-size:1.1rem;">@TempData["ResultadoOpenAI"]</div>
+    }
+</div>

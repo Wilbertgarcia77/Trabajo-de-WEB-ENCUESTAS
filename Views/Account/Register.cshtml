@@ -1,0 +1,57 @@
+@model encuestasgym.Models.Usuario
+@{
+    ViewData["Title"] = "Registro Black Gym Ai";
+}
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+    }
+    .bg-register {
+        min-height: 100vh;
+        width: 100vw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg,#007bff 60%,#222 100%);
+    }
+    .register-card {
+        width: 100%;
+        max-width: 400px;
+        background: #fff;
+        padding: 40px 30px;
+        border-radius: 16px;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+    }
+</style>
+<div class="bg-register">
+    <div class="register-card">
+        <h2 style="text-align:center;color:#222;font-weight:bold;margin-bottom:30px;letter-spacing:2px;">Registro Black Gym Ai</h2>
+        <form asp-action="Register" method="post">
+            <div class="mb-3">
+                <label class="form-label" style="font-weight:600;">Nombre</label>
+                <input asp-for="Nombre" class="form-control" style="border-radius:8px;" />
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" style="font-weight:600;">Email</label>
+                <input asp-for="Email" class="form-control" style="border-radius:8px;" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" style="font-weight:600;">Contraseña</label>
+                <input asp-for="Password" type="password" class="form-control" style="border-radius:8px;" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="d-grid gap-2 mb-2">
+                <button type="submit" class="btn btn-dark btn-block" style="border-radius:8px;font-weight:bold;">Registrarse</button>
+            </div>
+        </form>
+        <hr />
+        <div style="text-align:center;">
+            ¿Ya tienes cuenta? <a asp-action="Login" class="fw-bold" style="color:#007bff;">Inicia sesión aquí</a>
+        </div>
+    </div>
+</div>

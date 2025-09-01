@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+<div style="display:flex;justify-content:center;align-items:center;height:80vh;">
+    <div style="background:#fff;padding:40px 60px;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,0.10);text-align:center;min-width:400px;">
+        <h1 style="color:#007bff;font-size:2.5rem;font-weight:bold;">Bienvenido</h1>
+        <h2 style="color:#222;font-size:2rem;margin-top:20px;">@ViewBag.NombreUsuario</h2>
+        <form asp-controller="Account" asp-action="Logout" method="post" style="margin-top:20px;">
+            <button type="submit" class="btn btn-danger">Cerrar sesión</button>
+        </form>
+        <p style="margin-top:30px;font-size:1.2rem;">¡Gracias por usar Black Gym Ai!</p>
+        <div style="display:flex;justify-content:center;gap:30px;margin-top:40px;flex-wrap:wrap;">
+            <div style="background:#222;padding:20px;border-radius:12px;color:#fff;min-width:300px;">
+        
+          
+           
+            </div>
+        </div>
+    </div>
+</div>
