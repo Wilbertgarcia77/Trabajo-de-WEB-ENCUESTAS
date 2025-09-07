@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("encuestasgym")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+48fbc78b926ef9497863d0d857901434c2b1cd6d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+497a26605294fe1767c6dc5c25c4b3d2f8c761b8")]
 [assembly: System.Reflection.AssemblyProductAttribute("encuestasgym")]
 [assembly: System.Reflection.AssemblyTitleAttribute("encuestasgym")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

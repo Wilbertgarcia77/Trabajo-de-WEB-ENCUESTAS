@@ -41,11 +41,40 @@
                 <div style="color:#fff;font-size:2.2rem;font-weight:bold;margin-bottom:40px;letter-spacing:2px;text-shadow:0 2px 8px #007bff;">
                     🏋️‍♂️ Black Gym Ai
                 </div>
-                <a href="/Home/Index" class="btn btn-dark mb-3 w-75 d-flex align-items-center justify-content-start" style="font-weight:bold;font-size:1.1rem;border-radius:8px;"><span style="font-size:1.3rem;margin-right:10px;">🏠</span> Inicio</a>
-                <a href="/Encuesta/Nutricion" class="btn btn-primary mb-3 w-75 d-flex align-items-center justify-content-start" style="font-weight:bold;font-size:1.1rem;border-radius:8px;"><span style="font-size:1.3rem;margin-right:10px;">🥗</span> Nutrición</a>
-                <a href="/Encuesta/Ejercicio" class="btn btn-success mb-3 w-75 d-flex align-items-center justify-content-start" style="font-weight:bold;font-size:1.1rem;border-radius:8px;"><span style="font-size:1.3rem;margin-right:10px;">💪</span> Ejercicio</a>
-                <a href="/Encuesta/Personales" class="btn btn-warning mb-3 w-75 d-flex align-items-center justify-content-start" style="font-weight:bold;font-size:1.1rem;border-radius:8px;"><span style="font-size:1.3rem;margin-right:10px;">🧑‍⚕️</span> Personales</a>
-                <a href="/Resultados/Index" class="btn btn-info mb-3 w-75 d-flex align-items-center justify-content-start" style="font-weight:bold;font-size:1.1rem;border-radius:8px;"><span style="font-size:1.3rem;margin-right:10px;">📊</span> Resultados</a>
+                @{
+                    var usuarioId = Context.Session.GetInt32("UsuarioId");
+                    string rol = "cliente";
+                    if (usuarioId != null && usuarioId > 0)
+                    {
+                        // Consulta rápida del rol desde la base de datos
+                        using (var conn = new MySql.Data.MySqlClient.MySqlConnection(((IConfiguration)Context.RequestServices.GetService(typeof(IConfiguration))).GetConnectionString("DefaultConnection")))
+                        {
+                            conn.Open();
+                            using (var cmd = new MySql.Data.MySqlClient.MySqlCommand("SELECT rol FROM usuarios WHERE id = @id LIMIT 1", conn))
+                            {
+                                cmd.Parameters.AddWithValue("@id", usuarioId);
+                                using (var reader = cmd.ExecuteReader())
+                                {
+                                    if (reader.Read())
+                                    {
+                                        rol = reader["rol"]?.ToString() ?? "cliente";
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                @if (rol == "administrador")
+                {
+                    <a href="/Admin/Clientes" class="btn btn-dark mb-3 w-75 d-flex align-items-center justify-content-start" style="font-weight:bold;font-size:1.1rem;border-radius:8px;"><span style="font-size:1.3rem;margin-right:10px;">🛠️</span> Administración</a>
+                }
+                else
+                {
+                    <a href="/Encuesta/Nutricion" class="btn btn-primary mb-3 w-75 d-flex align-items-center justify-content-start" style="font-weight:bold;font-size:1.1rem;border-radius:8px;"><span style="font-size:1.3rem;margin-right:10px;">🥗</span> Nutrición</a>
+                    <a href="/Encuesta/Ejercicio" class="btn btn-success mb-3 w-75 d-flex align-items-center justify-content-start" style="font-weight:bold;font-size:1.1rem;border-radius:8px;"><span style="font-size:1.3rem;margin-right:10px;">💪</span> Ejercicio</a>
+                    <a href="/Encuesta/Personales" class="btn btn-warning mb-3 w-75 d-flex align-items-center justify-content-start" style="font-weight:bold;font-size:1.1rem;border-radius:8px;"><span style="font-size:1.3rem;margin-right:10px;">🧑‍⚕️</span> Personales</a>
+                    <a href="/Resultados/Index" class="btn btn-info mb-3 w-75 d-flex align-items-center justify-content-start" style="font-weight:bold;font-size:1.1rem;border-radius:8px;"><span style="font-size:1.3rem;margin-right:10px;">📊</span> Resultados</a>
+                }
                 <form asp-controller="Account" asp-action="Logout" method="post" style="width:100%;">
                     <button type="submit" class="btn btn-danger mb-3 w-75 d-flex align-items-center justify-content-start" style="font-weight:bold;font-size:1.1rem;border-radius:8px;">
                         <span style="font-size:1.3rem;margin-right:10px;">�</span> Cerrar sesión

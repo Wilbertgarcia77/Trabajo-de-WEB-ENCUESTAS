@@ -1,0 +1,49 @@
+@{
+    ViewData["Title"] = "Administración de Clientes";
+    var clientes = ViewBag.Clientes as List<encuestasgym.Models.Usuario>;
+}
+
+<div style="max-width:900px;margin:40px auto;padding:40px;background:#fff;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,0.10);">
+    <h2 style="color:#007bff;font-weight:bold;text-align:center;">Clientes Registrados</h2>
+    <table class="table table-bordered table-striped" style="margin-top:30px;">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Rol</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (clientes != null && clientes.Count > 0)
+            {
+                foreach (var cliente in clientes)
+                {
+                    <tr>
+                        <td>
+                            <a href="@Url.Action("DetalleCliente", "Admin", new { id = cliente.Id })" style="font-weight:bold;color:#007bff;">@cliente.Nombre</a>
+                        </td>
+                        <td>@cliente.Email</td>
+                        <td>@cliente.Rol</td>
+                        <td>
+                            <form asp-action="EliminarCliente" method="post" style="display:inline;">
+                                <input type="hidden" name="id" value="@cliente.Id" />
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Seguro que deseas eliminar este cliente?');">Eliminar</button>
+                            </form>
+                            <form asp-action="EditarCliente" method="post" style="display:inline;margin-left:8px;">
+                                <input type="hidden" name="id" value="@cliente.Id" />
+                                <input type="text" name="nombre" value="@cliente.Nombre" style="width:100px;" />
+                                <input type="text" name="email" value="@cliente.Email" style="width:150px;" />
+                                <button type="submit" class="btn btn-primary btn-sm">Editar</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr><td colspan="4" style="text-align:center;color:#888;">No hay clientes registrados.</td></tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,56 @@
+@{
+    ViewData["Title"] = "Detalle del Cliente";
+    var cliente = ViewBag.Cliente as encuestasgym.Models.Usuario;
+    var encuestas = ViewBag.Encuestas as List<dynamic>;
+    var recomendaciones = ViewBag.Recomendaciones as List<dynamic>;
+}
+
+<div style="max-width:900px;margin:40px auto;padding:40px;background:#fff;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,0.10);">
+    <h2 style="color:#007bff;font-weight:bold;text-align:center;">Detalle del Cliente</h2>
+    @if (cliente != null)
+    {
+        <div style="margin-bottom:30px;">
+            <strong>Nombre:</strong> @cliente.Nombre<br />
+            <strong>Email:</strong> @cliente.Email<br />
+            <strong>Rol:</strong> @cliente.Rol
+        </div>
+    }
+    <h3 style="color:#333;font-weight:bold;">Encuestas</h3>
+    @if (encuestas != null && encuestas.Count > 0)
+    {
+        <ul style="padding-left:0;list-style:none;">
+        @foreach (var encuesta in encuestas)
+        {
+            <li style="background:#f8f9fa;border-radius:8px;padding:12px;margin-bottom:10px;">
+                <strong>Tipo:</strong> @encuesta.tipo<br />
+                <strong>Datos:</strong> <pre style="background:#fff;padding:8px;border-radius:6px;white-space:pre-wrap;">@encuesta.datos</pre>
+            </li>
+        }
+        </ul>
+    }
+    else
+    {
+        <div style="color:#888;">No hay encuestas registradas para este cliente.</div>
+    }
+    <h3 style="color:#28a745;font-weight:bold;">Recomendaciones AI</h3>
+    @if (recomendaciones != null && recomendaciones.Count > 0)
+    {
+        <ul style="padding-left:0;list-style:none;">
+        @foreach (var reco in recomendaciones)
+        {
+            <li style="background:#e9ecef;border-radius:8px;padding:12px;margin-bottom:10px;">
+                <strong>Tipo:</strong> @reco.tipo<br />
+                <strong>Fecha:</strong> @reco.fecha<br />
+                <strong>Recomendación:</strong> <pre style="background:#fff;padding:8px;border-radius:6px;white-space:pre-wrap;">@reco.texto</pre>
+            </li>
+        }
+        </ul>
+    }
+    else
+    {
+        <div style="color:#888;">No hay recomendaciones generadas por la AI para este cliente.</div>
+    }
+    <div style="margin-top:30px;text-align:center;">
+        <a href="@Url.Action("Clientes", "Admin")" class="btn btn-secondary">Volver a la lista de clientes</a>
+    </div>
+</div>

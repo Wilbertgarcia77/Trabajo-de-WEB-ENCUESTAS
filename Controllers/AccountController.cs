@@ -82,12 +82,13 @@ namespace encuestasgym.Controllers
             using (var conn = new MySqlConnection(connStr))
             {
                 conn.Open();
-                string query = "INSERT INTO usuarios (nombre, email, password) VALUES (@nombre, @email, @password)";
+                string query = "INSERT INTO usuarios (nombre, email, password, rol) VALUES (@nombre, @email, @password, @rol)";
                 using (var cmd = new MySqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@nombre", usuario.Nombre);
                     cmd.Parameters.AddWithValue("@email", usuario.Email);
                     cmd.Parameters.AddWithValue("@password", usuario.Password);
+                    cmd.Parameters.AddWithValue("@rol", usuario.Rol);
                     cmd.ExecuteNonQuery();
                 }
             }

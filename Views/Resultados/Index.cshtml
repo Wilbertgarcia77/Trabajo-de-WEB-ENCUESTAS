@@ -25,6 +25,7 @@
     <div style="background:#fff;padding:30px 20px;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,0.10);margin-bottom:20px;">
         @{
             var encuestasHist = ViewBag.Encuestas as List<dynamic>;
+            var rol = ViewBag.Rol as string ?? "cliente";
             if (encuestasHist != null && encuestasHist.Count > 0)
             {
                 <div style="display:flex;flex-direction:column;gap:24px;">
@@ -42,6 +43,12 @@
                         <div style="margin-top:10px;">
                             <pre style="background:#fff;padding:12px;border-radius:8px;white-space:pre-wrap;font-size:1rem;">@encuesta.datos</pre>
                         </div>
+                        @if (rol == "administrador" && encuesta.usuario != null)
+                        {
+                            <div style="margin-top:10px;background:#e9ecef;padding:10px;border-radius:8px;">
+                                <strong>Usuario:</strong> @encuesta.usuario
+                            </div>
+                        }
                     </div>
                 }
                 </div>

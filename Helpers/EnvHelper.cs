@@ -13,17 +13,26 @@ namespace encuestasgym.Helpers
             if (_envVars == null)
             {
                 _envVars = new Dictionary<string, string>();
-                var envPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ".env");
-                if (File.Exists(envPath))
+                // Buscar .env en la carpeta de salida y en la raíz del proyecto
+                var possiblePaths = new[] {
+                    Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ".env"),
+                    Path.Combine(Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory)?.Parent?.Parent?.FullName ?? "", ".env"),
+                    Path.Combine(Directory.GetCurrentDirectory(), ".env")
+                };
+                foreach (var envPath in possiblePaths)
                 {
-                    foreach (var line in File.ReadAllLines(envPath))
+                    if (File.Exists(envPath))
                     {
-                        if (string.IsNullOrWhiteSpace(line) || line.Trim().StartsWith("#")) continue;
-                        var parts = line.Split('=', 2);
-                        if (parts.Length == 2)
+                        foreach (var line in File.ReadAllLines(envPath))
                         {
-                            _envVars[parts[0].Trim()] = parts[1].Trim();
+                            if (string.IsNullOrWhiteSpace(line) || line.Trim().StartsWith("#")) continue;
+                            var parts = line.Split('=', 2);
+                            if (parts.Length == 2)
+                            {
+                                _envVars[parts[0].Trim()] = parts[1].Trim();
+                            }
                         }
+                        break;
                     }
                 }
             }

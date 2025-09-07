@@ -35,19 +35,64 @@ namespace encuestasgym.Controllers
                 return View();
             }
 
-            var encuestas = new List<object>();
+            string rol = "cliente";
             using (var conn = new MySqlConnection(connStr))
             {
                 conn.Open();
-                string query = "SELECT tipo_encuesta, datos FROM reportes WHERE usuario_id = @usuario_id ORDER BY fecha DESC";
-                using (var cmd = new MySqlCommand(query, conn))
+                string rolQuery = "SELECT rol FROM usuarios WHERE id = @usuario_id LIMIT 1";
+                using (var cmd = new MySqlCommand(rolQuery, conn))
                 {
                     cmd.Parameters.AddWithValue("@usuario_id", usuarioId);
                     using (var reader = cmd.ExecuteReader())
                     {
-                        while (reader.Read())
+                        if (reader.Read())
                         {
-                            encuestas.Add(new { tipo = reader["tipo_encuesta"]?.ToString() ?? "", datos = reader["datos"]?.ToString() ?? "" });
+                            rol = reader["rol"]?.ToString() ?? "cliente";
+                        }
+                    }
+                }
+            }
+
+            var encuestas = new List<object>();
+            using (var conn = new MySqlConnection(connStr))
+            {
+                conn.Open();
+                string query;
+                if (rol == "administrador")
+                {
+                    // El administrador ve todas las encuestas de todos los usuarios
+                    query = "SELECT reportes.tipo_encuesta, reportes.datos, usuarios.nombre AS nombre_usuario FROM reportes JOIN usuarios ON reportes.usuario_id = usuarios.id ORDER BY reportes.fecha DESC";
+                    using (var cmd = new MySqlCommand(query, conn))
+                    {
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                encuestas.Add(new {
+                                    tipo = reader["tipo_encuesta"]?.ToString() ?? "",
+                                    datos = reader["datos"]?.ToString() ?? "",
+                                    usuario = reader["nombre_usuario"]?.ToString() ?? ""
+                                });
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    // El cliente solo ve sus propias encuestas
+                    query = "SELECT tipo_encuesta, datos FROM reportes WHERE usuario_id = @usuario_id ORDER BY fecha DESC";
+                    using (var cmd = new MySqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@usuario_id", usuarioId);
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                encuestas.Add(new {
+                                    tipo = reader["tipo_encuesta"]?.ToString() ?? "",
+                                    datos = reader["datos"]?.ToString() ?? ""
+                                });
+                            }
                         }
                     }
                 }
@@ -55,6 +100,7 @@ namespace encuestasgym.Controllers
 
             ViewBag.Encuestas = encuestas;
             ViewBag.Recomendacion = "";
+            ViewBag.Rol = rol;
             return View();
         }
 
